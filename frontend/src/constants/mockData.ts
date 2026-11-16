@@ -1,0 +1,232 @@
+import { Medicine, DoctorInfo, PatientInfo } from '../types';
+
+export const INITIAL_DOCTOR: DoctorInfo = {
+  name: 'Dr. Rajesh Sharma, MD',
+  qualification: 'Consultant Physician & Diabetologist',
+  reg_number: 'MCI-74829-DEL',
+  clinic_hospital: 'Apollo Wellness Center, New Delhi',
+  phone: '+91 98112 34567',
+  email: 'dr.rajesh@apollowellness.org'
+};
+
+export const INITIAL_PATIENT: PatientInfo = {
+  name: 'Aarav Mehta',
+  age: 36,
+  gender: 'Male',
+  phone: '+91 98201 54321',
+  email: 'aarav.mehta@example.com',
+  address: 'B-402, Green Park Avenue, New Delhi',
+  known_allergies: ['Penicillin'],
+  diagnosis: 'Acute Bronchitis & High Grade Fever'
+};
+
+export const INITIAL_MEDICINES: Medicine[] = [
+  {
+    id: 'med-001',
+    brand_name: 'Dolo 650',
+    generic_name: 'Paracetamol (Acetaminophen)',
+    category: 'Antipyretic & Analgesic',
+    form: 'Tablet',
+    strength: '650 mg',
+    composition: 'Paracetamol IP 650mg',
+    standard_unit: 'tablet',
+    common_indications: ['Fever', 'Headache', 'Body Ache', 'Post-vaccination fever'],
+    hindi_name: 'डोलो ६५० (पैरासिटामोल)',
+    default_timing: 'AFTER_FOOD',
+    contraindications: ['Severe Hepatic Impairment', 'Active liver disease']
+  },
+  {
+    id: 'med-002',
+    brand_name: 'Augmentin 625 Duo',
+    generic_name: 'Amoxicillin + Clavulanic Acid',
+    category: 'Antibacterial / Antibiotic',
+    form: 'Tablet',
+    strength: '625 mg',
+    composition: 'Amoxicillin 500mg + Clavulanic Acid 125mg',
+    standard_unit: 'tablet',
+    common_indications: ['Bacterial RTI', 'Sinusitis', 'Skin & Soft Tissue Infections', 'Dental Abscess'],
+    hindi_name: 'ऑगमेंटिन ६२५ (एमोक्सीसिलिन)',
+    default_timing: 'WITH_FOOD',
+    contraindications: ['Penicillin Allergy', 'History of penicillin jaundice']
+  },
+  {
+    id: 'med-003',
+    brand_name: 'Pan-D',
+    generic_name: 'Pantoprazole + Domperidone',
+    category: 'Gastroprokinetic & Antacid',
+    form: 'Capsule',
+    strength: '40 mg / 30 mg SR',
+    composition: 'Pantoprazole Sodium 40mg + Domperidone 30mg SR',
+    standard_unit: 'capsule',
+    common_indications: ['GERD', 'Acid Reflux', 'Nausea with Hyperacidity', 'Gastritis'],
+    hindi_name: 'पैन-डी (पैन्टोप्राजोल)',
+    default_timing: 'EMPTY_STOMACH',
+    contraindications: ['Gastrointestinal Hemorrhage', 'Mechanical bowel obstruction']
+  },
+  {
+    id: 'med-004',
+    brand_name: 'Azithral 500',
+    generic_name: 'Azithromycin',
+    category: 'Macrolide Antibiotic',
+    form: 'Tablet',
+    strength: '500 mg',
+    composition: 'Azithromycin Dihydrate 500mg',
+    standard_unit: 'tablet',
+    common_indications: ['Throat Infection', 'Tonsillitis', 'Pneumonia', 'Typhoid', 'Bronchitis'],
+    hindi_name: 'एजिथ्रल ५०० (एजिथ्रोमाइसिन)',
+    default_timing: 'AFTER_FOOD',
+    contraindications: ['Cholestatic jaundice', 'Hypersensitivity to macrolides']
+  },
+  {
+    id: 'med-005',
+    brand_name: 'Glycomet 500 SR',
+    generic_name: 'Metformin Hydrochloride',
+    category: 'Anti-Diabetic',
+    form: 'Tablet',
+    strength: '500 mg',
+    composition: 'Metformin Hydrochloride 500mg (SR)',
+    standard_unit: 'tablet',
+    common_indications: ['Type 2 Diabetes Mellitus', 'PCOS Insulin Resistance'],
+    hindi_name: 'ग्लाइकोमेट ५०० (मेटफॉर्मिन)',
+    default_timing: 'WITH_FOOD',
+    contraindications: ['Severe Renal Impairment', 'Acute Metabolic Acidosis']
+  },
+  {
+    id: 'med-006',
+    brand_name: 'Telma 40',
+    generic_name: 'Telmisartan',
+    category: 'Antihypertensive',
+    form: 'Tablet',
+    strength: '40 mg',
+    composition: 'Telmisartan IP 40mg',
+    standard_unit: 'tablet',
+    common_indications: ['Essential Hypertension', 'Cardiovascular Risk Reduction'],
+    hindi_name: 'टेल्मा ४० (टेल्मीसार्टन)',
+    default_timing: 'AFTER_FOOD',
+    contraindications: ['Pregnancy 2nd/3rd trimester', 'Bilateral renal artery stenosis']
+  },
+  {
+    id: 'med-007',
+    brand_name: 'Montair-LC',
+    generic_name: 'Montelukast + Levocetirizine',
+    category: 'Antiallergic & Anti-asthmatic',
+    form: 'Tablet',
+    strength: '10 mg / 5 mg',
+    composition: 'Montelukast Sodium 10mg + Levocetirizine HCl 5mg',
+    standard_unit: 'tablet',
+    common_indications: ['Allergic Rhinitis', 'Sneezing & Runny Nose', 'Chronic Urticaria'],
+    hindi_name: 'मोन्टायर-एलसी (मोंटेलुकास्ट)',
+    default_timing: 'BEDTIME',
+    contraindications: ['End-stage renal disease', 'Severe hepatic failure']
+  },
+  {
+    id: 'med-008',
+    brand_name: 'Shelcal 500',
+    generic_name: 'Calcium Carbonate + Vitamin D3',
+    category: 'Nutritional Supplement',
+    form: 'Tablet',
+    strength: '500 mg / 250 IU',
+    composition: 'Elemental Calcium 500mg + Cholecalciferol 250 IU',
+    standard_unit: 'tablet',
+    common_indications: ['Calcium Deficiency', 'Osteoporosis', 'Pregnancy/Lactation Supplement'],
+    hindi_name: 'शेलकल ५०० (कैल्शियम)',
+    default_timing: 'AFTER_FOOD',
+    contraindications: ['Hypercalcemia', 'Kidney Stones']
+  },
+  {
+    id: 'med-009',
+    brand_name: 'Ascoril-LS Syrup',
+    generic_name: 'Levosalbutamol + Ambroxol + Guaiphenesin',
+    category: 'Cough & Respiratory',
+    form: 'Syrup',
+    strength: '100 ml bottle',
+    composition: 'Levosalbutamol 1mg + Ambroxol 30mg + Guaiphenesin 50mg per 5ml',
+    standard_unit: '5 ml (1 tsp)',
+    common_indications: ['Productive Wet Cough', 'Bronchial Asthma with Phlegm', 'COPD'],
+    hindi_name: 'एस्कोरिल-एलएस सिरप (खांसी की दवा)',
+    default_timing: 'AFTER_FOOD',
+    contraindications: ['Severe Arrhythmia', 'Gastric Ulcer']
+  },
+  {
+    id: 'med-010',
+    brand_name: 'Ciplox 500',
+    generic_name: 'Ciprofloxacin',
+    category: 'Antibacterial / Fluoroquinolone',
+    form: 'Tablet',
+    strength: '500 mg',
+    composition: 'Ciprofloxacin Hydrochloride 500mg',
+    standard_unit: 'tablet',
+    common_indications: ['Urinary Tract Infection (UTI)', 'Bacterial Gastroenteritis'],
+    hindi_name: 'सिप्लॉक्स ५०० (सिप्रोफ्लोक्सासिन)',
+    default_timing: 'AFTER_FOOD',
+    contraindications: ['Tendon rupture history', 'Tizanidine use', 'Myasthenia Gravis']
+  },
+  {
+    id: 'med-011',
+    brand_name: 'Atorva 20',
+    generic_name: 'Atorvastatin',
+    category: 'Lipid Lowering (Statin)',
+    form: 'Tablet',
+    strength: '20 mg',
+    composition: 'Atorvastatin Calcium 20mg',
+    standard_unit: 'tablet',
+    common_indications: ['High Cholesterol', 'Cardiovascular Risk Prevention'],
+    hindi_name: 'एटोरवा २० (एटोरवास्टेटिन)',
+    default_timing: 'BEDTIME',
+    contraindications: ['Active liver disease', 'Pregnancy']
+  },
+  {
+    id: 'med-012',
+    brand_name: 'Thyronorm 50',
+    generic_name: 'Levothyroxine Sodium',
+    category: 'Thyroid Hormone',
+    form: 'Tablet',
+    strength: '50 mcg',
+    composition: 'Levothyroxine Sodium IP 50mcg',
+    standard_unit: 'tablet',
+    common_indications: ['Hypothyroidism', 'Goiter Prophylaxis'],
+    hindi_name: 'थायरोनॉर्म ५० (थायरॉयड की दवा)',
+    default_timing: 'EMPTY_STOMACH',
+    contraindications: ['Untreated thyrotoxicosis', 'Uncorrected adrenal insufficiency']
+  },
+  {
+    id: 'med-013',
+    brand_name: 'Asthalin Inhaler',
+    generic_name: 'Salbutamol (Albuterol)',
+    category: 'Respiratory / Inhaler',
+    form: 'Inhaler',
+    strength: '100 mcg / puff',
+    composition: 'Salbutamol Sulphate 100mcg per puff',
+    standard_unit: 'puff',
+    common_indications: ['Acute Wheezing', 'Asthma Attack', 'Bronchospasm Relief'],
+    hindi_name: 'अस्थालिन इनहेलर (दमा की दवा)',
+    default_timing: 'AFTER_FOOD',
+    contraindications: ['Hypersensitivity to salbutamol']
+  },
+  {
+    id: 'med-014',
+    brand_name: 'Combiflam',
+    generic_name: 'Ibuprofen + Paracetamol',
+    category: 'Antipyretic & Analgesic',
+    form: 'Tablet',
+    strength: '400 mg / 325 mg',
+    composition: 'Ibuprofen 400mg + Paracetamol 325mg',
+    standard_unit: 'tablet',
+    common_indications: ['Dental Pain', 'Severe Muscle Pain', 'Post-injury swelling'],
+    hindi_name: 'कॉम्बीफ्लाम (दर्द निवारक)',
+    default_timing: 'AFTER_FOOD',
+    contraindications: ['Active Peptic Ulcer', 'Severe Heart Failure']
+  }
+];
+
+export const CATEGORIES = [
+  'All',
+  'Antipyretic & Analgesic',
+  'Antibacterial / Antibiotic',
+  'Gastroprokinetic & Antacid',
+  'Anti-Diabetic',
+  'Antihypertensive',
+  'Antiallergic & Anti-asthmatic',
+  'Cough & Respiratory',
+  'Nutritional Supplement'
+];
