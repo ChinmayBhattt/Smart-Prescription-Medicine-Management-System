@@ -45,16 +45,17 @@ func main() {
 		})
 	})
 
-	// 2. Search medicines
+	// 2. Search medicines (Unified DrugSetu Live API + Clinic Catalog)
 	mux.HandleFunc("GET /api/medicines", func(w http.ResponseWriter, r *http.Request) {
 		query := r.URL.Query().Get("q")
 		cat := r.URL.Query().Get("category")
 		form := r.URL.Query().Get("form")
 
-		results := SearchMedicines(query, cat, form)
+		results := SearchMedicinesWithDrugSetu(query, cat, form)
 		jsonResponse(w, http.StatusOK, map[string]interface{}{
-			"count":     len(results),
-			"medicines": results,
+			"count":            len(results),
+			"medicines":        results,
+			"drugsetu_enabled": true,
 		})
 	})
 

@@ -1,0 +1,10 @@
+# Environment files
+.env
+*.env
+backend/.env
+
+# Binaries & build artifacts
+backend/server
+dist/
+node_modules/
+*.db

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Plus, GripVertical, Pill, Droplet, Wind, ShieldAlert } from 'lucide-react';
+import { Plus, GripVertical, Pill, Droplet, Wind, ShieldAlert, CheckCircle2 } from 'lucide-react';
 import { Medicine } from '../types';
 
 interface MedicineCardProps {
@@ -41,6 +41,8 @@ export const MedicineCard: React.FC<MedicineCardProps> = ({ medicine, onAdd, lan
     }
   };
 
+  const isDrugSetu = medicine.id.startsWith('ds-');
+
   return (
     <div
       draggable
@@ -63,6 +65,12 @@ export const MedicineCard: React.FC<MedicineCardProps> = ({ medicine, onAdd, lan
               <span className="text-[10px] font-semibold text-slate-600 bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">
                 {medicine.strength}
               </span>
+              {isDrugSetu && (
+                <span className="inline-flex items-center gap-1 text-[9px] font-medium px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  <CheckCircle2 className="w-2.5 h-2.5 text-emerald-600" />
+                  DrugSetu
+                </span>
+              )}
             </div>
 
             {/* Hindi Name if available */}
