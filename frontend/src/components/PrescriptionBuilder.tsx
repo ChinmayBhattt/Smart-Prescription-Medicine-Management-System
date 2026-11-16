@@ -243,13 +243,13 @@ export const PrescriptionBuilder: React.FC<PrescriptionBuilderProps> = ({
   ];
 
   return (
-    <div className="flex flex-col h-full bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
+    <div className="bg-white rounded-2xl border border-slate-200 shadow-xs">
       
-      {/* 1. Header Toolbar with Unique Prescription Code */}
-      <div className="p-4 bg-slate-50/70 border-b border-slate-200 flex flex-wrap items-center justify-between gap-3">
+      {/* 1. Header Toolbar with Unique Prescription Code (Sticky on top of prescription pad) */}
+      <div className="sticky top-[4.25rem] z-20 p-4 bg-white/95 backdrop-blur-md border-b border-slate-200 rounded-t-2xl flex flex-wrap items-center justify-between gap-3 shadow-2xs">
         <div className="flex items-center gap-2.5">
-          <div className="flex items-center gap-2 bg-white border border-slate-200 px-3 py-1.5 rounded-xl shadow-2xs">
-            <span className="text-[10px] font-bold tracking-wider uppercase text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded">
+          <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-xl shadow-2xs">
+            <span className="text-[10px] font-bold tracking-wider uppercase text-emerald-700 bg-emerald-100/80 px-1.5 py-0.5 rounded">
               RX CODE
             </span>
             <span className="font-mono text-sm font-bold text-slate-900 tracking-wide">
@@ -298,11 +298,11 @@ export const PrescriptionBuilder: React.FC<PrescriptionBuilderProps> = ({
         </div>
       </div>
 
-      {/* Main Content Area */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+      {/* Main Content Area: Flows naturally with window scrolling */}
+      <div className="p-5 space-y-5">
         
         {/* 2. Patient Information Strip */}
-        <div className="p-4 rounded-xl bg-slate-50/50 border border-slate-200 shadow-2xs">
+        <div className="p-4 rounded-xl bg-slate-50/70 border border-slate-200 shadow-2xs">
           <div className="flex items-center gap-2 mb-3 text-xs font-bold text-slate-800 uppercase tracking-wider">
             <User className="w-3.5 h-3.5 text-emerald-600" />
             <span>{language === 'hi' ? 'मरीज का विवरण (Patient Info)' : 'Patient Information'}</span>
@@ -389,7 +389,7 @@ export const PrescriptionBuilder: React.FC<PrescriptionBuilderProps> = ({
                 value={prescription.patient.known_allergies.join(', ')}
                 onChange={(e) => handlePatientChange('known_allergies', e.target.value.split(',').map(s => s.trim()))}
                 placeholder="Penicillin, Sulfa, NSAIDs..."
-                className="w-full bg-white border border-amber-300 rounded-lg px-3 py-1.5 text-amber-900 bg-amber-50/40 focus:outline-none focus:border-amber-500 font-semibold"
+                className="w-full bg-amber-50/50 border border-amber-300 rounded-lg px-3 py-1.5 text-amber-900 focus:outline-none focus:border-amber-500 font-semibold"
               />
             </div>
           </div>
@@ -452,7 +452,7 @@ export const PrescriptionBuilder: React.FC<PrescriptionBuilderProps> = ({
               </p>
             </div>
           ) : (
-            <div className="space-y-3">
+            <div className="space-y-3.5">
               {prescription.items.map((item, index) => (
                 <div
                   key={item.id}
@@ -651,7 +651,7 @@ export const PrescriptionBuilder: React.FC<PrescriptionBuilderProps> = ({
         </div>
 
         {/* 6. Clinical Advice & Notes */}
-        <div className="p-4 rounded-xl bg-slate-50/50 border border-slate-200 text-xs shadow-2xs">
+        <div className="p-4 rounded-xl bg-slate-50/70 border border-slate-200 text-xs shadow-2xs">
           <label className="block text-[11px] text-slate-700 mb-1 font-bold uppercase tracking-wider">
             {language === 'hi' ? 'विशेष चिकित्सीय निर्देश व सलाह' : 'Clinical Notes & Patient Advice'}
           </label>

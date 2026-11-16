@@ -44,7 +44,8 @@ import {
 
 export function App() {
   const [activeTab, setActiveTab] = useState<'doctor' | 'pharmacist' | 'patient' | 'safety'>('doctor');
-  const [language, setLanguage] = useState<'en' | 'hi'>('hi');
+  // Default language is English as requested
+  const [language, setLanguage] = useState<'en' | 'hi'>('en');
   const [medicines, setMedicines] = useState<Medicine[]>(INITIAL_MEDICINES);
   const [isOcrOpen, setIsOcrOpen] = useState(false);
   const [isDeliveryOpen, setIsDeliveryOpen] = useState(false);
@@ -193,7 +194,6 @@ export function App() {
   });
 
   useEffect(() => {
-    // Load medicines from backend API
     fetchMedicines().then(data => {
       if (data && data.length > 0) {
         setMedicines(data);
@@ -274,9 +274,9 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans">
+    <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col font-sans">
       
-      {/* 1. Universal Top Header */}
+      {/* 1. Top Navigation Bar (Fixed/Sticky Header) */}
       <Header
         doctor={prescription.doctor}
         activeTab={activeTab}
@@ -287,12 +287,13 @@ export function App() {
         onOpenVoice={() => setIsVoiceOpen(true)}
       />
 
-      {/* 2. Main Workstation Area */}
-      <main className="flex-1 p-4 md:p-6 max-w-[1600px] w-full mx-auto overflow-hidden">
+      {/* 2. Main Workstation Area: Natural window scrolling */}
+      <main className="flex-1 p-4 md:p-6 max-w-[1700px] w-full mx-auto pb-16">
         {activeTab === 'doctor' && (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 h-[calc(100vh-5rem)]">
-            {/* Left 4 cols: Searchable Medicine Catalog */}
-            <div className="lg:col-span-4 xl:col-span-4 h-full">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+            
+            {/* Left 4 cols: Searchable Medicine Catalog (Sticky on desktop so it stays in view) */}
+            <div className="lg:col-span-4 xl:col-span-4 lg:sticky lg:top-[4.25rem] h-[calc(100vh-5.5rem)] min-h-0">
               <MedicineCatalog
                 medicines={medicines}
                 onAddMedicine={handleAddMedicine}
@@ -300,8 +301,8 @@ export function App() {
               />
             </div>
 
-            {/* Right 8 cols: Drag & Drop Prescription Builder */}
-            <div className="lg:col-span-8 xl:col-span-8 h-full">
+            {/* Right 8 cols: Drag & Drop Prescription Builder (Scrolls naturally with window) */}
+            <div className="lg:col-span-8 xl:col-span-8 min-h-0">
               <PrescriptionBuilder
                 prescription={prescription}
                 onUpdatePrescription={setPrescription}
@@ -315,13 +316,13 @@ export function App() {
         )}
 
         {activeTab === 'pharmacist' && (
-          <div className="py-4">
+          <div className="py-2">
             <PharmacistPortal language={language} />
           </div>
         )}
 
         {activeTab === 'patient' && (
-          <div className="py-4">
+          <div className="py-2">
             <PatientPortal
               initialPrescription={prescription}
               language={language}
@@ -330,7 +331,7 @@ export function App() {
         )}
 
         {activeTab === 'safety' && (
-          <div className="py-4">
+          <div className="py-2">
             <SafetyAuditDrawer
               prescription={prescription}
               language={language}
