@@ -1,19 +1,36 @@
 # Smart Prescription & Medicine Management System (SmartRx)
 ### Desktop-First Medical Workstation for Doctors & Pharmacists
 
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.163.1-009688.svg?logo=fastapi)](https://fastapi.tiangolo.com)
-[![React](https://img.shields.io/badge/React-19_TS-61DAFB.svg?logo=react)](https://react.dev)
+[![Go Backend](https://img.shields.io/badge/Backend-Go_(Golang_1.26)-00ADD8.svg?logo=go)](https://golang.org)
+[![React](https://img.shields.io/badge/Frontend-React_19_TS-61DAFB.svg?logo=react)](https://react.dev)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-v4-38B2AC.svg?logo=tailwind-css)](https://tailwindcss.com)
 [![Zero AI Hallucination](https://img.shields.io/badge/Safety-Zero_AI_Hallucination-emerald.svg)](https://smartrx.hospital)
 [![Bilingual](https://img.shields.io/badge/Bilingual-English_%26_हिन्दी-orange.svg)](#multilingual-output)
 
-A production-grade, desktop-first clinical application built for healthcare practitioners (physicians and pharmacists) with a sleek glassmorphic medical interface, searchable pharmaceutical catalog, drag-and-drop prescription building, cryptographic unique prescription codes, deterministic zero-hallucination OCR text extraction, 24-hour chronological medicine intake schedules, natural voice audio instructions, and multi-channel patient delivery (PDF receipt, WhatsApp, and Resend email).
+A production-grade, desktop-first clinical application built for healthcare practitioners (physicians and pharmacists) with a sleek medical interface, searchable pharmaceutical catalog, drag-and-drop prescription building, cryptographic unique prescription codes, deterministic zero-hallucination OCR text extraction, 24-hour chronological medicine intake schedules, natural voice audio instructions, and multi-channel patient delivery (PDF receipt, WhatsApp, and Resend email).
+
+**Backend Architecture:** Completely written in **Go (Golang)** for sub-millisecond execution, high concurrency, and native single-binary deployment (FastAPI has been completely replaced).
 
 ---
 
 ## 🌟 Key Architecture & Capabilities
 
-### 1. 🛡️ Strict Zero-AI-Hallucination Safety Protocol
+### 1. ⚡ High-Performance Go Backend
+* **Native Go Speed & Concurrency**: Written with Go's standard library `net/http` router, thread-safe memory/persistence store, and zero external dependencies.
+* **Microsecond Latency**: Instant prescription generation, drug safety checks, and OCR text processing.
+* **REST Endpoints**:
+  * `GET /api/health` — Service health & engine info.
+  * `GET /api/medicines` — Search catalog by brand, generic, or symptoms.
+  * `GET /api/prescriptions/generate-id` — Generates unique alphanumeric ID (`RX-2026-XXXXX`).
+  * `POST /api/prescriptions/validate-safety` — Clinical interaction & allergy conflict engine.
+  * `POST /api/prescriptions/create` — Creates and signs verified prescription.
+  * `GET /api/prescriptions/{id}` — Lookup prescription by code.
+  * `POST /api/prescriptions/{id}/dispense` — Pharmacist verification & dispensing audit.
+  * `POST /api/ocr/scan` — Safe character extraction with zero hallucination guarantee.
+  * `POST /api/delivery/send` — WhatsApp Cloud API & Resend email payload dispatch.
+  * `GET /api/prescriptions/{id}/voice` — Hindi and English voice readout scripts.
+
+### 2. 🛡️ Strict Zero-AI-Hallucination Safety Protocol
 * **Strict Policy Guarantee**: Medical systems must **never** use generative LLMs to guess or invent missing or scribbled dosage instructions.
 * **Deterministic Character OCR**: Evaluates confidence per line. If a handwriting slip has ambiguous, scribbled, or unconfirmed dosages, the system issues an explicit safety hold:
   `⚠️ LOW OCR CONFIDENCE: AI Hallucination Prohibited. Dosage must be confirmed by Doctor/Pharmacist.`
@@ -22,69 +39,53 @@ A production-grade, desktop-first clinical application built for healthcare prac
   * Real-time **Patient Allergy Conflicts** (e.g., Penicillin allergy vs Amoxicillin / Augmentin).
   * **Antibiotic-Antacid Chelation Alerts** (e.g., Fluoroquinolones taken with Pantoprazole or Calcium).
 
-### 2. 💊 Searchable Medicine Catalog & Draggable Cards
+### 3. 💊 Searchable Medicine Catalog & Draggable Cards
 * Pre-loaded with Indian and international pharmaceutical formulations (Dolo 650, Augmentin 625, Pan-D, Azithral 500, Glycomet 500, Telma 40, Montair-LC, Shelcal 500, Ascoril-LS, Ciplox 500, Atorva 20, Thyronorm 50, Asthalin Inhaler, Combiflam, etc.).
 * Search across Brand names, Generic composition, Hindi names, and Clinical indications.
 * Filter by therapeutic categories and dosage forms (Tablet, Capsule, Syrup, Inhaler, Drops).
 * HTML5 drag-and-drop support: Drag any card directly into the prescription pad canvas or tap `(+)` to add.
 
-### 3. 📝 Interactive Prescription Builder & Unique Prescription ID
+### 4. 📝 Interactive Prescription Builder & Unique Prescription ID
 * **Cryptographic Unique Prescription ID**: Formatted as `RX-YYYY-XXXXX` with alphanumeric check-digits (e.g. `RX-2026-7849K`).
 * Direct **QR Code generation** for patient scanning and online verification.
 * Quick dosage, duration, and food-relation controls (`AFTER_FOOD`, `BEFORE_FOOD`, `EMPTY_STOMACH`, `WITH_FOOD`, `BEDTIME`).
 * Visual **M-A-E-N (Morning, Afternoon, Evening, Night)** slot buttons with automatic total quantity calculation.
 
-### 4. 📅 Confirmed 24-Hour Medicine Schedule Section
+### 5. 📅 Confirmed 24-Hour Medicine Schedule Section
 * Renders a chronological visual matrix based *strictly* on confirmed prescription items:
   * 🌅 **Morning (सुबह ~ 08:00 AM)**
   * ☀️ **Afternoon (दोपहर ~ 01:00 PM)**
   * 🌇 **Evening (शाम ~ 06:00 PM)**
   * 🌙 **Night (रात ~ 09:30 PM)**
-* Formatted in high-contrast card blocks with pill badges, food relations, and bilingual instructions.
 
-### 5. 🌐 Multilingual Output (English & हिन्दी)
-* Instant UI language toggle between **English** and **हिन्दी**.
-* Every medication instruction is dynamically formulated in both languages:
-  * *English:* "Take 1 tablet after food in the Morning & Night for 5 days."
-  * *हिन्दी:* "सुबह और रात में 1 गोली भोजन के बाद, 5 दिनों तक लें।"
+### 6. 🌐 Multilingual Output (English & हिन्दी)
+* Default language: **English (`'en'`)** with 1-click toggle to **हिन्दी (`'hi'`)** in the header.
+* Medication instructions and schedule entries are generated simultaneously in both languages.
 
-### 6. 🔊 Voice Instructions for Patients (Accessibility)
+### 7. 🔊 Voice Instructions for Patients (Accessibility)
 * Browser Web Speech API narration in native **Hindi (`hi-IN`)** and **Indian English (`en-IN`)**.
-* Visual animated audio waveform inspired by modern voice AI workstations.
-* Full spoken transcript box for elderly, illiterate, or visually impaired patients.
+* Visual animated audio waveform visualizer for elderly, illiterate, or visually impaired patients.
 
-### 7. 📲 Multi-Channel Patient Delivery
+### 8. 📲 Multi-Channel Patient Delivery
 * **Official PDF Generation**: Hospital letterhead, doctor credentials, prescription items table, confirmed schedule, QR code, and doctor digital signature block.
 * **WhatsApp Cloud API & Direct Chat**: Instant click-to-chat `wa.me` links pre-filled with bilingual schedule text and digital prescription portal link.
 * **Resend Email Service**: Clean, responsive HTML email receipt with complete prescription breakdown.
-* **Live On-Screen QR Code**: Patients can point their smartphone camera at the doctor's screen to open their interactive schedule immediately.
-
-### 8. 🏪 Pharmacist Dispensing Portal
-* Search by unique prescription code.
-* Verify doctor signature, check inventory quantities, and mark prescription as `DISPENSED`.
-* Audit logging of dispensing pharmacist and timestamps.
-
-### 9. 🗄️ Supabase Database Ready (सुपाबेस)
-* Includes complete `backend/supabase_schema.sql` with tables for `doctors`, `patients`, `medicines`, `prescriptions`, `prescription_items`, and `audit_logs` with Row Level Security (RLS) policies.
-* Integrated local SQLite fallback (`backend/smart_prescription.db`) for immediate zero-config execution.
 
 ---
 
 ## 🚀 Quick Start Guide
 
-### Prerequisites
-- Node.js (v18+) & npm
-- Python (v3.10+)
-
-### 1. Run the Python FastAPI Backend
+### 1. Run the Go (Golang) Backend
 ```bash
-# Activate virtual environment
-source backend/venv/bin/activate
+cd backend
 
-# Start server
-PYTHONPATH=backend uvicorn app.main:app --host 127.0.0.1 --port 8000
+# Option A: Run directly with Go
+go run .
+
+# Option B: Run compiled binary
+./server
 ```
-Backend API will be live at `http://127.0.0.1:8000` (Docs at `/docs`).
+Backend API will be live at `http://127.0.0.1:8000`.
 
 ### 2. Run the React Desktop Frontend
 ```bash
@@ -100,40 +101,23 @@ Frontend workstation will be live at `http://127.0.0.1:5173`.
 ```
 smart prescription system/
 ├── backend/
-│   ├── app/
-│   │   ├── main.py               # FastAPI application & REST endpoints
-│   │   ├── models.py             # Pydantic data schemas
-│   │   ├── medicine_catalog.py   # Curated medicine formulations catalog
-│   │   ├── safety_engine.py      # Drug interactions, allergy & schedule generator
-│   │   ├── ocr_service.py        # Zero-hallucination deterministic OCR parser
-│   │   ├── delivery_service.py   # WhatsApp & Resend email payload generators
-│   │   ├── speech_service.py     # Bilingual voice instruction scripts
-│   │   └── database.py           # Database connector (Supabase + SQLite fallback)
-│   ├── supabase_schema.sql       # Production Supabase PostgreSQL schema with RLS
-│   └── smart_prescription.db     # Local SQLite database
+│   ├── go.mod               # Go module definition
+│   ├── main.go              # Go HTTP server, REST endpoints & CORS
+│   ├── models.go            # Go data structs (Prescription, Patient, Doctor)
+│   ├── catalog.go           # Medicine formulations catalog & search
+│   ├── safety.go            # Safety engine & 24h schedule generator
+│   ├── ocr.go               # Zero-hallucination deterministic OCR parser
+│   ├── delivery.go          # WhatsApp & Resend email payload generators
+│   ├── speech.go            # Bilingual voice instruction scripts
+│   ├── store.go             # Thread-safe in-memory store with demo seeding
+│   ├── server               # Compiled native binary executable
+│   └── supabase_schema.sql  # Supabase PostgreSQL schema with RLS
 ├── frontend/
 │   ├── src/
-│   │   ├── components/
-│   │   │   ├── Header.tsx                 # Workstation top bar & language toggle
-│   │   │   ├── MedicineCatalog.tsx        # Searchable catalog & category filters
-│   │   │   ├── MedicineCard.tsx           # Draggable medicine card
-│   │   │   ├── PrescriptionBuilder.tsx    # Drag-and-drop canvas & item editor
-│   │   │   ├── MedicineSchedule.tsx       # 24-hr chronological intake schedule
-│   │   │   ├── OCRScannerModal.tsx        # Safe zero-hallucination OCR modal
-│   │   │   ├── DeliveryModal.tsx          # WhatsApp, Resend, PDF & QR delivery
-│   │   │   ├── VoiceInstructionPlayer.tsx # Speech synthesis player with animated waves
-│   │   │   ├── PharmacistPortal.tsx       # Pharmacist verification & dispensing
-│   │   │   ├── PatientPortal.tsx          # Patient-facing portal with adherence checklist
-│   │   │   └── SafetyAuditDrawer.tsx      # Clinical safety & compliance audit
-│   │   ├── services/
-│   │   │   ├── api.ts                     # Backend REST API integration
-│   │   │   ├── pdfGenerator.ts            # jsPDF letterhead & QR receipt builder
-│   │   │   └── speechService.ts           # Web Speech API Hindi/English narrator
-│   │   ├── constants/mockData.ts          # Default doctors, patients & medicines
-│   │   ├── types.ts                       # TypeScript interfaces
-│   │   └── App.tsx                        # Main workstation orchestrator
+│   │   ├── components/      # React UI components (White theme, decongested navbar)
+│   │   ├── services/        # REST API, PDF generator & speech service
+│   │   ├── types.ts         # TypeScript interfaces
+│   │   └── App.tsx          # Master layout orchestrator with natural scrolling
 │   └── package.json
 └── README.md
 ```
-# Smart-Prescription-Medicine-Management-System
-# Smart-Prescription-Medicine-Management-System
