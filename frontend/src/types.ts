@@ -33,6 +33,7 @@ export interface Medicine {
   hindi_name?: string;
   default_timing: TimingRelation;
   contraindications: string[];
+  source?: 'rxnorm' | 'openfda' | 'drugsetu' | 'clinic';
 }
 
 export interface PrescriptionItem {

@@ -1,9 +1,11 @@
 import { Medicine, Prescription, PrescriptionItem, PatientInfo, OCRScanResult } from '../types';
 import { INITIAL_MEDICINES } from '../constants/mockData';
+import { searchAllMedicinesRealtime } from './globalDrugSearch';
 
 const API_BASE = 'http://127.0.0.1:8000/api';
 
 export async function fetchMedicines(query = '', category = '', form = ''): Promise<Medicine[]> {
+  let backendMeds: Medicine[] = [];
   try {
     const params = new URLSearchParams();
     if (query) params.append('q', query);
@@ -13,23 +15,17 @@ export async function fetchMedicines(query = '', category = '', form = ''): Prom
     const res = await fetch(`${API_BASE}/medicines?${params.toString()}`);
     if (res.ok) {
       const data = await res.json();
-      return data.medicines;
+      backendMeds = data.medicines || [];
     }
   } catch (err) {
-    console.warn('Backend API unavailable, using local medicine catalog fallback:', err);
+    // Backend API optional, client-side fallback continues
   }
-  
-  // Local fallback
-  return INITIAL_MEDICINES.filter(med => {
-    const q = query.toLowerCase();
-    const matchQ = !q || 
-      med.brand_name.toLowerCase().includes(q) ||
-      med.generic_name.toLowerCase().includes(q) ||
-      (med.hindi_name && med.hindi_name.toLowerCase().includes(q));
-    const matchCat = !category || category === 'All' || med.category === category;
-    const matchForm = !form || form === 'All' || med.form === form;
-    return matchQ && matchCat && matchForm;
-  });
+
+  // Combine local clinic catalog with Go backend items
+  const baseCatalog = backendMeds.length > 0 ? backendMeds : INITIAL_MEDICINES;
+
+  // Search across Global NIH RxNorm + OpenFDA + Indian Clinic Catalog
+  return await searchAllMedicinesRealtime(query, category, form, baseCatalog);
 }
 
 export async function generatePrescriptionId(): Promise<string> {
