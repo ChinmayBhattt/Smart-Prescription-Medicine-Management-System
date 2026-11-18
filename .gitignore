@@ -8,3 +8,7 @@ backend/server
 dist/
 node_modules/
 *.db
+
+# OS files
+.DS_Store
+Thumbs.db

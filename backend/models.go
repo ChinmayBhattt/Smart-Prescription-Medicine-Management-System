@@ -46,6 +46,7 @@ type Medicine struct {
 	HindiName         string         `json:"hindi_name,omitempty"`
 	DefaultTiming     TimingRelation `json:"default_timing"`
 	Contraindications []string       `json:"contraindications"`
+	Source            string         `json:"source,omitempty"`
 }
 
 type PrescriptionItem struct {
