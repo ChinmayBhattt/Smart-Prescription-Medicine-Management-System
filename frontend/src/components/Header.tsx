@@ -6,8 +6,7 @@ import {
   Pill, 
   UserCheck, 
   Sparkles,
-  PhoneCall,
-  ChevronDown
+  PhoneCall
 } from 'lucide-react';
 import { DoctorInfo } from '../types';
 

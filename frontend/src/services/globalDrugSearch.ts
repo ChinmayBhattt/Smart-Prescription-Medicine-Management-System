@@ -1,4 +1,4 @@
-import { Medicine, DosageForm, TimingRelation } from '../types';
+import { Medicine, DosageForm } from '../types';
 
 // In-memory cache for instant responses
 const queryCache = new Map<string, Medicine[]>();
